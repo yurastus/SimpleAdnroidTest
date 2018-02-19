@@ -5,14 +5,14 @@ import view.CalculatorMainView;
 public class CalculatorTest extends BaseTest{
 
     @Test
-    public void threePlusSevenTest() {
+    public void shouldAddTwoDigitsTest() {
 
         CalculatorMainView calculator = new CalculatorMainView(driver);
 
         calculator.getThreeButton().click();
-        calculator.getPlusButton().click();
+        calculator.add();
         calculator.getSevenButton().click();
-        calculator.getEqualsButton().click();
+        calculator.evaluate();
 
         Assert.assertEquals(calculator.getResult(),"10");
     }

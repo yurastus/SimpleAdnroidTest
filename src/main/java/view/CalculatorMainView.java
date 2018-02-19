@@ -26,11 +26,22 @@ public class CalculatorMainView {
     private WebElement equalsButton;
 
     public CalculatorMainView(WebDriver driver){
+        driver.manage()
+                .timeouts()
+                .implicitlyWait(10, TimeUnit.SECONDS);
 
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         PageFactory.initElements(driver, this);
 
-        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(equalsButton));
+        new WebDriverWait(driver, 10)
+                .until(ExpectedConditions.visibilityOf(equalsButton));
+    }
+
+    public void add(){
+        plusButton.click();
+    }
+
+    public void evaluate(){
+        equalsButton.click();
     }
 
     public String getResult(){

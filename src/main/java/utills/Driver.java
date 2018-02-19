@@ -8,12 +8,22 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import static view.CalculatorMainView.APPLICATION_PACKAGE;
 
-//should be replaces with factory and values should be read from properties
 public class Driver {
 
     public WebDriver initDriver(){
+
+        String url = PropertyLoader.loadProperty("appium.url");
+        String port = PropertyLoader.loadProperty("appium.port");
+
+        StringBuilder accomplishedUrl = new StringBuilder()
+                .append("http://")
+                .append(url)
+                .append(":")
+                .append(port)
+                .append("/wd/hub");
+
         try {
-            return new RemoteWebDriver(new URL("http://127.0.0.1:4723/wd/hub"), setCapabilities());
+            return new RemoteWebDriver(new URL(accomplishedUrl.toString()), setCapabilities());
 
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
@@ -23,14 +33,16 @@ public class Driver {
     private static DesiredCapabilities setCapabilities(){
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
+        String deviceName = PropertyLoader.loadProperty("device.name");
 
-        capabilities.setCapability(CapabilityType.VERSION, "6.0");
-        capabilities.setCapability("deviceName", "TEST");
-        capabilities.setCapability("BROWSER_NAME", "Android");
-        capabilities.setCapability("platformName", "Android");
+        capabilities.setCapability("deviceName", deviceName);
+        capabilities.setCapability("avd",deviceName);
+
+        capabilities.setCapability(CapabilityType.PLATFORM, PropertyLoader.loadProperty("platform"));
+        capabilities.setCapability(CapabilityType.VERSION, PropertyLoader.loadProperty("version"));
+
         capabilities.setCapability("appPackage", APPLICATION_PACKAGE);
         capabilities.setCapability("appActivity", APPLICATION_PACKAGE + ".Calculator");
-        capabilities.setCapability("avd","TEST");
 
         return capabilities;
     }

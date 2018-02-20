@@ -12,8 +12,8 @@ public class Driver {
 
     public WebDriver initDriver(){
 
-        String url = PropertyLoader.loadProperty("appium.url");
-        String port = PropertyLoader.loadProperty("appium.port");
+        String url = Property.load("appium.url");
+        String port = Property.load("appium.port");
 
         StringBuilder accomplishedUrl = new StringBuilder()
                 .append("http://")
@@ -33,13 +33,13 @@ public class Driver {
     private static DesiredCapabilities setCapabilities(){
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        String deviceName = PropertyLoader.loadProperty("device.name");
+        String deviceName = Property.load("device.name");
 
         capabilities.setCapability("deviceName", deviceName);
         capabilities.setCapability("avd",deviceName);
 
-        capabilities.setCapability(CapabilityType.PLATFORM, PropertyLoader.loadProperty("platform"));
-        capabilities.setCapability(CapabilityType.VERSION, PropertyLoader.loadProperty("version"));
+        capabilities.setCapability(CapabilityType.PLATFORM, Property.load("platform"));
+        capabilities.setCapability(CapabilityType.VERSION, Property.load("version"));
 
         capabilities.setCapability("appPackage", APPLICATION_PACKAGE);
         capabilities.setCapability("appActivity", APPLICATION_PACKAGE + ".Calculator");

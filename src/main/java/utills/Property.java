@@ -3,22 +3,22 @@ package utills;
 import java.io.IOException;
 import java.util.Properties;
 
-public class PropertyLoader {
+public class Property {
 
     private static final String PROP_FILE = "/android.properties";
     private static Properties props = new Properties();
 
     static {
         try {
-            props.load(PropertyLoader.class.getResourceAsStream(PROP_FILE));
+            props.load(Property.class.getResourceAsStream(PROP_FILE));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private PropertyLoader(){}
+    private Property(){}
 
-    public static String loadProperty(String name) {
+    public static String load(String name) {
         return props.getProperty(name);
     }
 
